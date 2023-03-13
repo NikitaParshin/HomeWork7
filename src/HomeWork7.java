@@ -2,12 +2,9 @@ package org.future.code.homework;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class HomeWork7 {
@@ -24,7 +21,10 @@ public class HomeWork7 {
      */
     public static List<String> methodOne(List<String> names) {
         // Твой код здесь
-        return Collections.emptyList();
+        List<String> result = names.stream()
+                .filter(o -> o.contains("King"))
+                .collect(Collectors.toList());
+        return result;
     }
 
     /**
@@ -32,7 +32,11 @@ public class HomeWork7 {
      */
     public static List<String> methodTwo(List<String> names) {
         // Твой код здесь
-        return Collections.emptyList();
+        List<String> result = names.stream()
+                .map(o -> o.substring(o.indexOf(' ') + 1))
+                .distinct()
+                .collect(Collectors.toList());
+        return result;
     }
 
     /**
@@ -40,7 +44,12 @@ public class HomeWork7 {
      */
     public static List<String> methodThree(List<String> names) {
         // Твой код здесь
-        return Collections.emptyList();
+        List<String> result = names.stream()
+                .map(o -> o.substring(0, o.indexOf(' ')))
+                .filter(o -> o.contains("L"))
+                .distinct()
+                .collect(Collectors.toList());
+        return result;
     }
 
     /**
@@ -48,7 +57,13 @@ public class HomeWork7 {
      */
     public static List<String> methodFour(List<String> names) {
         // Твой код здесь
-        return Collections.emptyList();
+        List<String> result = names.stream()
+                .map(o -> o.substring(o.indexOf(' ') + 1))
+                .filter(o -> o.charAt(0) == 'W')
+                .distinct()
+                .sorted()
+                .collect(Collectors.toList());
+        return result;
     }
 
     /**
@@ -56,16 +71,26 @@ public class HomeWork7 {
      */
     public static Integer methodFive(List<String> names) {
         // Твой код здесь
-        return 0;
+        int result = (int) names.stream()
+                .map(o -> o.substring(0, o.indexOf(' ')))
+                .distinct()
+                .filter(o -> o.length() > 6)
+                .count();
+        return result;
     }
 
     /**
      * Метод должен вернуть суммарное количество уникальных имён и фамилий, длиннее 5 символов
      * P. S. Самостоятельно почитайте про метод flatMap()
      */
-    public static Integer methodSix(List<String> names) {
+
+    public static Integer  methodSix(List<String> names) {
         // Твой код здесь
-        return 0;
+        return (int) names.stream()
+                .map(n -> Arrays.asList(n.split(" ")))
+                .flatMap(Collection::stream)
+                .filter(s -> s.length() > 5)
+                .distinct().count();
     }
 
     /**
@@ -74,7 +99,13 @@ public class HomeWork7 {
      */
     public static List<String> methodSeven(List<String> names) {
         // Твой код здесь
-        return Collections.emptyList();
+        List<String> result = names.stream()
+                .filter(o -> o.charAt(o.indexOf(' ') + 1) == 'K' || o.charAt(o.indexOf(' ') + 1) == 'S')
+                .map(o -> o.substring(0, o.indexOf(' ') + 2) + ".")
+                .distinct()
+                .sorted()
+                .collect(Collectors.toList());
+        return result;
     }
 
     public static void main(String[] args) {
